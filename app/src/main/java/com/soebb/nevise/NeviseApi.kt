@@ -9,9 +9,7 @@ import java.net.URL
 
 /**
  * Client for the Nevise Gradio Space.
- *
- * Gradio's API is asynchronous: POST returns an event_id, then GET streams
- * server-sent events until the "complete" event contains the corrected text.
+ * Gradio expects input values in the "data" array.
  */
 object NeviseApi {
     private const val BASE_URL = "https://soheybsamadi-nevise-api.hf.space"
@@ -35,7 +33,11 @@ object NeviseApi {
             connection.setRequestProperty("Content-Type", "application/json; charset=utf-8")
             connection.setRequestProperty("Accept", "application/json")
 
-            val body = JSONObject().put("text", text).toString()
+            // Gradio call endpoints expect: {"data": ["input text"]}
+            val body = JSONObject()
+                .put("data", JSONArray().put(text))
+                .toString()
+
             connection.outputStream.use { output ->
                 output.write(body.toByteArray(Charsets.UTF_8))
             }
