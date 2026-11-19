@@ -95,7 +95,7 @@ object NeviseApi {
                                 throw IllegalStateException("مدل نتوانست متن را پردازش کند: $data")
                             }
                             eventName = ""
-                            data.clear()
+                            data.setLength(0)
                         }
                     }
                 }
