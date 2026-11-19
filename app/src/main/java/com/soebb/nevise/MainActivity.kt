@@ -151,8 +151,9 @@ private fun NeviseScreen() {
                 Text(
                     text = errorMessage.orEmpty(),
                     color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium,
-                    textDirection = TextDirection.Ltr
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        textDirection = TextDirection.Ltr
+                    )
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedButton(
