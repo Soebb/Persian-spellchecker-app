@@ -136,13 +136,32 @@ private fun NeviseScreen() {
                 }
             }
 
+            if (isLoading) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "در حال بررسی و اصلاح متن...",
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
             if (errorMessage != null) {
                 Spacer(modifier = Modifier.height(14.dp))
                 Text(
                     text = errorMessage.orEmpty(),
                     color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    textDirection = TextDirection.Ltr
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedButton(
+                    onClick = {
+                        clipboard.setText(AnnotatedString(errorMessage.orEmpty()))
+                    }
+                ) {
+                    Text("کپی متن خطا")
+                }
             }
 
             if (correctedText.isNotEmpty()) {
